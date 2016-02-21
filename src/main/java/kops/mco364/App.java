@@ -13,6 +13,6 @@ public class App
         System.out.println( "Hello World!" );
         
         
-        Gson gson = new Gson();
+    
     }
 }
