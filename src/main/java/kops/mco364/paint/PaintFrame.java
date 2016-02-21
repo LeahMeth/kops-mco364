@@ -35,7 +35,7 @@ public class PaintFrame extends JFrame {
 
 			public void actionPerformed(ActionEvent arg0) {
 				PrinterJob pj = PrinterJob.getPrinterJob();
-				pj.setJobName("Print Canvas");
+				pj.setJobName("Print Canvas ");
 				pj.setPrintable(new Printable() {
 
 					public int print(Graphics graphics, PageFormat format,
