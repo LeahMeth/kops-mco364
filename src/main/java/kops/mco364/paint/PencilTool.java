@@ -6,6 +6,11 @@ import java.awt.Graphics;
 public class PencilTool implements Tool{
 
 	private int x, y;
+	private Color color;
+	
+	public PencilTool(Color color){
+		this.color = color;
+	}
 	
 	public void mousePressed(Graphics g, int x, int y) {
 		

@@ -15,11 +15,14 @@ public class Canvas extends JPanel {
 
 	private BufferedImage buffer;
 	private Tool tool;
+	private Color color;
 
 	public Canvas() {
 
 		buffer = new BufferedImage(800, 600, BufferedImage.TYPE_INT_ARGB);
-		this.tool = new LineTool();
+		color = Color.BLACK; 		//default
+		tool = new PencilTool(color);	//default
+		
 
 		this.addMouseListener(new MouseListener() {
 
@@ -68,7 +71,31 @@ public class Canvas extends JPanel {
 
 		});
 	}
+	
+	public void setTool(String toolType){
+		switch(toolType){
+		case "Pencil":
+			this.tool = new PencilTool(color);
+			break;
+		case "Line":
+			this.tool = new LineTool();
+			break;
+		case "Rectangle":
+			this.tool = new RectangleTool();
+			break;
+		case "Oval":
+			this.tool = new OvalTool();
+			break;
+		case "Bucket":
+			this.tool = new BucketTool();
+			break;
+		}
+	}
 
+	public void setToolColor(Color newColor) {
+		this.color = newColor;
+	}
+	
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
@@ -77,5 +104,7 @@ public class Canvas extends JPanel {
 		tool.drawPreview(g);
 
 	}
+
+	
 
 }
