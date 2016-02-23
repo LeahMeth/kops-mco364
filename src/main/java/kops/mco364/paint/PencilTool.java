@@ -1,12 +1,16 @@
 package kops.mco364.paint;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.geom.Line2D;
 
 public class PencilTool implements Tool{
 
 	private int x, y;
 	private Color color;
+	private int size;
 	
 	public PencilTool(Color color){
 		this.color = color;
@@ -15,15 +19,16 @@ public class PencilTool implements Tool{
 	public void mousePressed(Graphics g, int x, int y) {
 		
 		g.setColor(color);
-		g.fillOval(x, y, 1, 1);
+		g.fillOval(x, y, size, size);
 		this.x = x;
 		this.y = y;
 	}
 
 	public void mouseDragged(Graphics g, int x, int y) {
-			
-		g.setColor(color);						
-		g.drawLine(x, y, this.x, this.y);
+		Graphics2D g2 = (Graphics2D) g;
+		g2.setColor(color);
+		g2.setStroke(new BasicStroke(size));
+		g2.draw(new Line2D.Float(x, y, this.x, this.y));
 		
 		this.x = x;
 		this.y = y;		
@@ -45,6 +50,12 @@ public class PencilTool implements Tool{
 	@Override
 	public void setToolColor(Color newColor) {
 		this.color = newColor;
+		
+	}
+
+	@Override
+	public void setToolSize(int size) {
+		this.size = size;
 		
 	}
 

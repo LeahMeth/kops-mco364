@@ -16,4 +16,6 @@ public interface Tool {//methods are public automatically
 
 	void setToolColor(Color newColor);
 
+	void setToolSize(int size);
+
 }

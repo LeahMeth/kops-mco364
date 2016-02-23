@@ -41,6 +41,12 @@ public class BucketTool implements Tool {
 		
 	}
 
+	@Override
+	public void setToolSize(int size) {
+		// TODO Auto-generated method stub
+		
+	}
+
 	
 
 }

@@ -6,6 +6,7 @@ import java.awt.Graphics;
 public class RectangleTool implements Tool {
 	
 	private Color color;
+	private int size;
 	
 	public RectangleTool(Color color){
 		this.color = color;
@@ -38,6 +39,12 @@ public class RectangleTool implements Tool {
 	@Override
 	public void setToolColor(Color newColor) {
 		this.color = newColor;
+		
+	}
+
+	@Override
+	public void setToolSize(int size) {
+		this.size = size;
 		
 	}
 
