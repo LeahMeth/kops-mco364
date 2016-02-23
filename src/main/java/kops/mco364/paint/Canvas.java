@@ -78,21 +78,22 @@ public class Canvas extends JPanel {
 			this.tool = new PencilTool(color);
 			break;
 		case "Line":
-			this.tool = new LineTool();
+			this.tool = new LineTool(color);
 			break;
 		case "Rectangle":
-			this.tool = new RectangleTool();
+			this.tool = new RectangleTool(color);
 			break;
 		case "Oval":
-			this.tool = new OvalTool();
+			this.tool = new OvalTool(color);
 			break;
 		case "Bucket":
-			this.tool = new BucketTool();
+			this.tool = new BucketTool(color);
 			break;
 		}
 	}
 
 	public void setToolColor(Color newColor) {
+		this.tool.setToolColor(newColor);
 		this.color = newColor;
 	}
 	

@@ -1,9 +1,16 @@
 package kops.mco364.paint;
 
+import java.awt.Color;
 import java.awt.Graphics;
 
 public class OvalTool implements Tool {
 
+	private Color color;
+
+	public OvalTool(Color color){
+		this.color = color;
+	}
+	
 	@Override
 	public void mousePressed(Graphics g, int x, int y) {
 		// TODO Auto-generated method stub
@@ -27,5 +34,12 @@ public class OvalTool implements Tool {
 		// TODO Auto-generated method stub
 
 	}
+
+	@Override
+	public void setToolColor(Color newColor) {
+		this.color = newColor;
+		
+	}
+
 
 }
