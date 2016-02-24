@@ -55,7 +55,7 @@ public class PaintFrame extends JFrame implements ActionListener {
 		toolPanel.add(line);
 		toolPanel.add(rectangle);
 		toolPanel.add(oval);
-		toolPanel.add(bucket);
+		//toolPanel.add(bucket);
 		
 		//settings and options
 						

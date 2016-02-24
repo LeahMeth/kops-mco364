@@ -12,8 +12,9 @@ public class PencilTool implements Tool{
 	private Color color;
 	private int size;
 	
-	public PencilTool(Color color){
+	public PencilTool(Color color, int size){
 		this.color = color;
+		this.size = size;
 	}
 	
 	public void mousePressed(Graphics g, int x, int y) {
@@ -27,7 +28,7 @@ public class PencilTool implements Tool{
 	public void mouseDragged(Graphics g, int x, int y) {
 		Graphics2D g2 = (Graphics2D) g;
 		g2.setColor(color);
-		g2.setStroke(new BasicStroke(size));
+		g2.setStroke(new BasicStroke(size, BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER));
 		g2.draw(new Line2D.Float(x, y, this.x, this.y));
 		
 		this.x = x;

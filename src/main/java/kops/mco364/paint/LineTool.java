@@ -15,8 +15,9 @@ public class LineTool implements Tool{
 	private Color color;
 	private int size;
 	
-	public LineTool(Color color){
+	public LineTool(Color color, int size){
 		this.color = color;
+		this.size = size;
 	}
 
 	public void mousePressed(Graphics g, int x, int y) {
