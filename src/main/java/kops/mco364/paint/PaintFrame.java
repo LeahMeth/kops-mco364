@@ -28,7 +28,7 @@ public class PaintFrame extends JFrame implements ActionListener {
 	
 	public PaintFrame() {
 		setTitle("Paint");
-		setSize(600, 600);
+		setSize(1000, 900);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		Container container = new Container();
@@ -55,7 +55,7 @@ public class PaintFrame extends JFrame implements ActionListener {
 		toolPanel.add(line);
 		toolPanel.add(rectangle);
 		toolPanel.add(oval);
-		//toolPanel.add(bucket);
+		toolPanel.add(bucket);
 		
 		//settings and options
 						

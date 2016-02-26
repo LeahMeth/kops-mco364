@@ -20,7 +20,7 @@ public class Canvas extends JPanel {
 
 	public Canvas() {
 
-		buffer = new BufferedImage(800, 600, BufferedImage.TYPE_INT_ARGB);
+		buffer = new BufferedImage(1000, 900, BufferedImage.TYPE_INT_ARGB);
 		color = Color.BLACK; // default
 		toolSize = 1;		 // default
 		tool = new PencilTool(color, toolSize); // default
