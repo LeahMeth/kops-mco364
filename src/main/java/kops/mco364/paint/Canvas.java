@@ -2,12 +2,11 @@ package kops.mco364.paint;
 
 import java.awt.Color;
 import java.awt.Graphics;
-
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-
 import java.awt.image.BufferedImage;
+import java.util.Stack;
 
 import javax.swing.JPanel;
 
@@ -17,6 +16,8 @@ public class Canvas extends JPanel {
 	private Tool tool;
 	private Color color;
 	private int toolSize;
+	private Stack<BufferedImage> undo;
+	private Stack<BufferedImage> redo;
 
 	public Canvas() {
 
@@ -24,6 +25,9 @@ public class Canvas extends JPanel {
 		color = Color.BLACK; // default
 		toolSize = 1;		 // default
 		tool = new PencilTool(color, toolSize); // default
+		
+		undo = new Stack<BufferedImage>();
+		redo = new Stack<BufferedImage>();
 
 		this.addMouseListener(new MouseListener() {
 

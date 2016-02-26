@@ -6,6 +6,7 @@ import java.awt.Graphics;
 public class BucketTool implements Tool {
 
 	private Color color;
+	private 
 	
 	public BucketTool(Color color){
 		this.color = color;
