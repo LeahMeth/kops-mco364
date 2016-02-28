@@ -44,7 +44,6 @@ public class PencilTool implements Tool{
 
 
 	public void drawPreview(Graphics g) {
-		// TODO Auto-generated method stub
 		
 	}
 

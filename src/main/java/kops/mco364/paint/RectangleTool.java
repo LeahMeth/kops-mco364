@@ -55,6 +55,7 @@ public class RectangleTool implements Tool {
 			g2.drawRect(x2, y2, (x1 - x2), (y1 - y2));
 		}
 
+		
 	}
 
 	@Override

@@ -6,7 +6,6 @@ import java.awt.Graphics;
 public class BucketTool implements Tool {
 
 	private Color color;
-	private 
 	
 	public BucketTool(Color color){
 		this.color = color;
@@ -27,7 +26,7 @@ public class BucketTool implements Tool {
 	@Override
 	public void mouseReleased(Graphics g, int x, int y) {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
@@ -47,7 +46,6 @@ public class BucketTool implements Tool {
 		// TODO Auto-generated method stub
 		
 	}
-
 	
 
 }

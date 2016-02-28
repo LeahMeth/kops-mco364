@@ -25,6 +25,7 @@ public class PaintFrame extends JFrame implements ActionListener {
 	private JPanel toolPanel, settingsPanel;
 	private JButton pencil, line, rectangle, oval, bucket;
 	private JButton print, changeColor, changeSize;
+	private JButton undo, redo;
 	
 	public PaintFrame() {
 		setTitle("Paint");
@@ -120,9 +121,31 @@ public class PaintFrame extends JFrame implements ActionListener {
 
 		});
 		
+		undo = new JButton("Undo");
+		undo.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				canvas.undoAction();
+				
+			}
+			
+		});
+		
+		redo = new JButton("Redo");
+		redo.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				canvas.redoAction();
+			}
+			
+		});	
 			
 		
 		settingsPanel = new JPanel(new FlowLayout());
+		settingsPanel.add(undo);
+		settingsPanel.add(redo);
 		settingsPanel.add(changeSize);
 		settingsPanel.add(changeColor);
 		settingsPanel.add(print);

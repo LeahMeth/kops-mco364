@@ -6,13 +6,15 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
+import java.awt.image.ColorModel;
+import java.awt.image.WritableRaster;
 import java.util.Stack;
 
 import javax.swing.JPanel;
 
 public class Canvas extends JPanel {
 
-	private BufferedImage buffer;
+	private BufferedImage buffer, copy;
 	private Tool tool;
 	private Color color;
 	private int toolSize;
@@ -21,18 +23,22 @@ public class Canvas extends JPanel {
 
 	public Canvas() {
 
-		buffer = new BufferedImage(1000, 900, BufferedImage.TYPE_INT_ARGB);
-		color = Color.BLACK; // default
-		toolSize = 1;		 // default
-		tool = new PencilTool(color, toolSize); // default
-		
 		undo = new Stack<BufferedImage>();
 		redo = new Stack<BufferedImage>();
+
+		buffer = new BufferedImage(1000, 900, BufferedImage.TYPE_INT_ARGB);
+		copy = deepCopy();
+		undo.push(copy);
+
+		color = Color.BLACK;
+		toolSize = 1;
+		tool = new PencilTool(color, toolSize); // default
 
 		this.addMouseListener(new MouseListener() {
 
 			public void mousePressed(MouseEvent e) {
-
+				copy = deepCopy();
+				undo.push(copy);
 				tool.mousePressed(buffer.getGraphics(), e.getX(), e.getY());
 				repaint();
 
@@ -114,6 +120,31 @@ public class Canvas extends JPanel {
 		g.drawImage(buffer, 0, 0, null);
 		tool.drawPreview(g);
 
+	}
+
+	public void undoAction() {
+		//if (!undo.isEmpty()) {
+			copy = deepCopy();
+			redo.push(copy);
+			this.buffer = undo.pop();
+			repaint();
+		//}
+	}
+
+	public void redoAction() {
+		//if (!redo.isEmpty()) {
+			copy = deepCopy();
+			undo.push(copy);
+			this.buffer = redo.pop();
+			repaint();
+		//}
+	}
+
+	public BufferedImage deepCopy() {
+		ColorModel cm = this.buffer.getColorModel();
+		boolean isAlphaPremultiplied = cm.isAlphaPremultiplied();
+		WritableRaster raster = this.buffer.copyData(null);
+		return new BufferedImage(cm, raster, isAlphaPremultiplied, null);
 	}
 
 }

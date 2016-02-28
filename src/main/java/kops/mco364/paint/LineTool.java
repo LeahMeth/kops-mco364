@@ -21,7 +21,6 @@ public class LineTool implements Tool{
 	}
 
 	public void mousePressed(Graphics g, int x, int y) {
-		// TODO Auto-generated method stub
 		this.x1 = x;
 		this.y1 = y;
 		this.x2 = x;
@@ -29,7 +28,6 @@ public class LineTool implements Tool{
 	}
 
 	public void mouseReleased(Graphics g, int x, int y) {
-		// TODO Auto-generated method stub
 		Graphics2D g2 = (Graphics2D) g;
         g2.setStroke(new BasicStroke(size, BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER));
         g2.setColor(color);
@@ -38,14 +36,12 @@ public class LineTool implements Tool{
 	}
 
 	public void mouseDragged(Graphics g, int x, int y) {
-		// TODO Auto-generated method stub
 		this.x2 = x;
 		this.y2 = y;
 	}
 
 
 	public void drawPreview(Graphics g) {
-		// TODO Auto-generated method stub
 		Graphics2D g2 = (Graphics2D) g;
         g2.setStroke(new BasicStroke(size, BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER));
         g2.setColor(color);
