@@ -20,6 +20,9 @@ public class BucketTool implements Tool {
 	@Override
 	public void mousePressed(Graphics g, int x, int y, BufferedImage buffer) {
 		source = buffer.getRGB(x, y);
+		if(source == color.getRGB()){
+			return;
+		}
 
 		Stack<Point> points = new Stack<Point>();
 		points.push(new Point(x, y));
