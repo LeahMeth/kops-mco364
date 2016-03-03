@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.Line2D;
+import java.awt.image.BufferedImage;
 
 public class PencilTool implements Tool{
 
@@ -17,7 +18,7 @@ public class PencilTool implements Tool{
 		this.size = size;
 	}
 	
-	public void mousePressed(Graphics g, int x, int y) {
+	public void mousePressed(Graphics g, int x, int y, BufferedImage buffer) {
 		
 		g.setColor(color);
 		g.fillOval(x, y, size, size);

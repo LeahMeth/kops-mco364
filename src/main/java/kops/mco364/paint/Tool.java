@@ -7,7 +7,7 @@ import java.awt.image.BufferedImage;
 public interface Tool {
 	
 	//methods are public automatically	
-	void mousePressed(Graphics g, int x, int y);
+	void mousePressed(Graphics g, int x, int y, BufferedImage buffer);
 	
 	void mouseDragged(Graphics g, int x, int y);
 	

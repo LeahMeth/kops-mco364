@@ -29,8 +29,10 @@ public class PaintFrame extends JFrame implements ActionListener {
 	
 	public PaintFrame() {
 		setTitle("Paint");
-		setSize(1000, 900);
+		setSize(1000, 750);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setResizable(false);
+		setLocationRelativeTo(null);
 
 		Container container = new Container();
 		container = getContentPane();

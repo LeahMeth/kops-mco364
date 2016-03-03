@@ -26,7 +26,7 @@ public class Canvas extends JPanel {
 		undo = new Stack<BufferedImage>();
 		redo = new Stack<BufferedImage>();
 
-		buffer = new BufferedImage(1000, 900, BufferedImage.TYPE_INT_ARGB);
+		buffer = new BufferedImage(1000, 750, BufferedImage.TYPE_INT_ARGB);
 		copy = deepCopy();
 		undo.push(copy);
 
@@ -39,7 +39,7 @@ public class Canvas extends JPanel {
 			public void mousePressed(MouseEvent e) {
 				copy = deepCopy();
 				undo.push(copy);
-				tool.mousePressed(buffer.getGraphics(), e.getX(), e.getY());
+				tool.mousePressed(buffer.getGraphics(), e.getX(), e.getY(), buffer);
 				repaint();
 
 			}
@@ -123,21 +123,21 @@ public class Canvas extends JPanel {
 	}
 
 	public void undoAction() {
-		//if (!undo.isEmpty()) {
+		if (!undo.isEmpty()) {
 			copy = deepCopy();
 			redo.push(copy);
 			this.buffer = undo.pop();
 			repaint();
-		//}
+		}
 	}
 
 	public void redoAction() {
-		//if (!redo.isEmpty()) {
+		if (!redo.isEmpty()) {
 			copy = deepCopy();
 			undo.push(copy);
 			this.buffer = redo.pop();
 			repaint();
-		//}
+		}
 	}
 
 	public BufferedImage deepCopy() {
