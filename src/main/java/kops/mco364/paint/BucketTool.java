@@ -19,8 +19,13 @@ public class BucketTool implements Tool {
 
 	@Override
 	public void mousePressed(Graphics g, int x, int y, BufferedImage buffer) {
+		fill(x, y, buffer);
+
+	}
+
+	private void fill(int x, int y, BufferedImage buffer) {
 		source = buffer.getRGB(x, y);
-		if(source == color.getRGB()){
+		if (source == color.getRGB()) {
 			return;
 		}
 
@@ -30,17 +35,17 @@ public class BucketTool implements Tool {
 			currentPoint = points.pop();
 			currentX = currentPoint.getX();
 			currentY = currentPoint.getY();
-			if(currentX > 0 && currentY > 0 && currentX < 1000 && currentY < 750){
-				if(buffer.getRGB(currentX, currentY) == source){
+			if (currentX > 0 && currentY > 0 && currentX < 1000 && currentY < 750) {
+				if (buffer.getRGB(currentX, currentY) == source) {
 					buffer.setRGB(currentX, currentY, color.getRGB());
-					
+
 					points.push(new Point(currentX, currentY - 1));
 					points.push(new Point(currentX - 1, currentY));
 					points.push(new Point(currentX, currentY + 1));
 					points.push(new Point(currentX + 1, currentY));
 				}
 			}
-			
+
 		}
 
 	}

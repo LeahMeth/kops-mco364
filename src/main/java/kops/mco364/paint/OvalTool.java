@@ -15,11 +15,11 @@ public class OvalTool implements Tool {
 	private int x2;
 	private int y2;
 
-	public OvalTool(Color color, int size){
+	public OvalTool(Color color, int size) {
 		this.color = color;
 		this.size = size;
 	}
-	
+
 	@Override
 	public void mousePressed(Graphics g, int x, int y, BufferedImage buffer) {
 		this.x1 = x;
@@ -43,17 +43,14 @@ public class OvalTool implements Tool {
 		g2.setColor(color);
 		x2 = x;
 		y2 = y;
-		
-		if(x1 < x2 && y1 < y2){
+
+		if (x1 < x2 && y1 < y2) {
 			g2.drawOval(x1, y1, (x2 - x1), (y2 - y1));
-		}
-		else if(x1 < x2 && y1 > y2){
+		} else if (x1 < x2 && y1 > y2) {
 			g2.drawOval(x1, y2, (x2 - x1), (y1 - y2));
-		}
-		else if(x1 > x2 && y1 < y2){
+		} else if (x1 > x2 && y1 < y2) {
 			g2.drawOval(x2, y1, (x1 - x2), (y2 - y1));
-		}
-		else {
+		} else {
 			g2.drawOval(x2, y2, (x1 - x2), (y1 - y2));
 		}
 
@@ -64,16 +61,13 @@ public class OvalTool implements Tool {
 		Graphics2D g2 = (Graphics2D) g;
 		g2.setStroke(new BasicStroke(size));
 		g2.setColor(color);
-		if(x1 < x2 && y1 < y2){
+		if (x1 < x2 && y1 < y2) {
 			g2.drawOval(x1, y1, (x2 - x1), (y2 - y1));
-		}
-		else if(x1 < x2 && y1 > y2){
+		} else if (x1 < x2 && y1 > y2) {
 			g2.drawOval(x1, y2, (x2 - x1), (y1 - y2));
-		}
-		else if(x1 > x2 && y1 < y2){
+		} else if (x1 > x2 && y1 < y2) {
 			g2.drawOval(x2, y1, (x1 - x2), (y2 - y1));
-		}
-		else {
+		} else {
 			g2.drawOval(x2, y2, (x1 - x2), (y1 - y2));
 		}
 
@@ -82,14 +76,13 @@ public class OvalTool implements Tool {
 	@Override
 	public void setToolColor(Color newColor) {
 		this.color = newColor;
-		
+
 	}
 
 	@Override
 	public void setToolSize(int size) {
 		this.size = size;
-		
-	}
 
+	}
 
 }

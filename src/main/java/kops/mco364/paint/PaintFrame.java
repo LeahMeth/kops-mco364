@@ -26,7 +26,7 @@ public class PaintFrame extends JFrame implements ActionListener {
 	private JButton pencil, line, rectangle, oval, bucket;
 	private JButton print, changeColor, changeSize;
 	private JButton undo, redo;
-	
+
 	public PaintFrame() {
 		setTitle("Paint");
 		setSize(1000, 750);
@@ -40,7 +40,7 @@ public class PaintFrame extends JFrame implements ActionListener {
 
 		canvas = new Canvas();
 
-		//tools
+		// tools
 		pencil = new JButton("Pencil");
 		pencil.addActionListener(this);
 		line = new JButton("Line");
@@ -51,47 +51,47 @@ public class PaintFrame extends JFrame implements ActionListener {
 		oval.addActionListener(this);
 		bucket = new JButton("Bucket");
 		bucket.addActionListener(this);
-		
+
 		toolPanel = new JPanel(new FlowLayout());
-		
+
 		toolPanel.add(pencil);
 		toolPanel.add(line);
 		toolPanel.add(rectangle);
 		toolPanel.add(oval);
 		toolPanel.add(bucket);
-		
-		//settings and options
-						
+
+		// settings and options
+
 		changeColor = new JButton("Change Color");
-		changeColor.addActionListener(new ActionListener(){
+		changeColor.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent event) {
 				Color newColor = JColorChooser.showDialog(null, "change color", Color.BLACK);
-				if(newColor != null){
+				if (newColor != null) {
 					canvas.setToolColor(newColor);
 				}
 			}
-			
+
 		});
-		
+
 		changeSize = new JButton("Change Size");
-		changeSize.addActionListener(new ActionListener(){
+		changeSize.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				int size = 1;
-				
-				do{
-				String sizeString = JOptionPane.showInputDialog(null, "Enter a number from 1 to 10");
-				size = Integer.parseInt(sizeString);
-				}while(size < 1 || size > 10);
-				
+
+				do {
+					String sizeString = JOptionPane.showInputDialog(null, "Enter a number from 1 to 10");
+					size = Integer.parseInt(sizeString);
+				} while (size < 1 || size > 10);
+
 				canvas.setToolSize(size);
 			}
-			
+
 		});
-		
+
 		print = new JButton("Print Canvas");
 		print.addActionListener(new ActionListener() {
 
@@ -100,16 +100,15 @@ public class PaintFrame extends JFrame implements ActionListener {
 				pj.setJobName("Print Canvas ");
 				pj.setPrintable(new Printable() {
 
-					public int print(Graphics graphics, PageFormat format,
-							int pageIndex) throws PrinterException {
-						if(pageIndex > 0){
+					public int print(Graphics graphics, PageFormat format, int pageIndex) throws PrinterException {
+						if (pageIndex > 0) {
 							return Printable.NO_SUCH_PAGE;
 						}
 						Graphics2D graphics2 = (Graphics2D) graphics;
 						graphics2.translate(format.getImageableX(), format.getImageableY());
 						canvas.paint(graphics2);
 						return Printable.PAGE_EXISTS;
-						
+
 					}
 
 				});
@@ -117,59 +116,55 @@ public class PaintFrame extends JFrame implements ActionListener {
 					pj.print();
 				} catch (PrinterException e) {
 					e.printStackTrace();
-				}			
+				}
 
 			}
 
 		});
-		
+
 		undo = new JButton("Undo");
-		undo.addActionListener(new ActionListener(){
+		undo.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				canvas.undoAction();
-				
+
 			}
-			
+
 		});
-		
+
 		redo = new JButton("Redo");
-		redo.addActionListener(new ActionListener(){
+		redo.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				canvas.redoAction();
 			}
-			
-		});	
-			
-		
+
+		});
+
 		settingsPanel = new JPanel(new FlowLayout());
 		settingsPanel.add(undo);
 		settingsPanel.add(redo);
 		settingsPanel.add(changeSize);
 		settingsPanel.add(changeColor);
 		settingsPanel.add(print);
-		
-		
+
 		container.add(toolPanel, BorderLayout.NORTH);
 		container.add(canvas, BorderLayout.CENTER);
 		container.add(settingsPanel, BorderLayout.SOUTH);
 	}
-	
+
 	public void actionPerformed(ActionEvent event) {
 		JButton source = (JButton) event.getSource();
 		String toolType = source.getText();
-		
+
 		canvas.setTool(toolType);
-		
+
 	}
 
 	public static void main(String[] args) {
 		new PaintFrame().setVisible(true);
 	}
-
-	
 
 }
