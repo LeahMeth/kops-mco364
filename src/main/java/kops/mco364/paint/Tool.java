@@ -1,22 +1,21 @@
 package kops.mco364.paint;
 
-import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.image.BufferedImage;
 
-public interface Tool {
+public abstract class Tool {
 
-	// methods are public automatically
-	void mousePressed(Graphics g, int x, int y, BufferedImage buffer);
+	protected PaintProperties properties;
+	
+	public Tool(PaintProperties properties){
+		this.properties = properties;
+	}
+	
+	abstract void mousePressed(Graphics g, int x, int y);
 
-	void mouseDragged(Graphics g, int x, int y);
+	abstract void mouseDragged(Graphics g, int x, int y);
 
-	void mouseReleased(Graphics g, int x, int y);
+	abstract void mouseReleased(Graphics g, int x, int y);
 
-	void drawPreview(Graphics g);
-
-	void setToolColor(Color newColor);
-
-	void setToolSize(int size);
+	abstract void drawPreview(Graphics g);
 
 }

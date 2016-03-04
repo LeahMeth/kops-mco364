@@ -7,29 +7,26 @@ import java.awt.Graphics2D;
 import java.awt.geom.Line2D;
 import java.awt.image.BufferedImage;
 
-public class PencilTool implements Tool {
+public class PencilTool extends Tool {
 
 	private int x, y;
-	private Color color;
-	private int size;
 
-	public PencilTool(Color color, int size) {
-		this.color = color;
-		this.size = size;
+	public PencilTool(PaintProperties properties) {
+		super(properties);
 	}
 
-	public void mousePressed(Graphics g, int x, int y, BufferedImage buffer) {
+	public void mousePressed(Graphics g, int x, int y) {
 
-		g.setColor(color);
-		g.fillOval(x, y, size, size);
+		g.setColor(properties.getColor());
+		g.fillOval(x, y, properties.getColor().getRGB(), properties.getWeight());
 		this.x = x;
 		this.y = y;
 	}
 
 	public void mouseDragged(Graphics g, int x, int y) {
 		Graphics2D g2 = (Graphics2D) g;
-		g2.setColor(color);
-		g2.setStroke(new BasicStroke(size, BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER));
+		g2.setColor(properties.getColor());
+		g2.setStroke(new BasicStroke(properties.getWeight(), BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER));
 		g2.draw(new Line2D.Float(x, y, this.x, this.y));
 
 		this.x = x;
@@ -45,16 +42,6 @@ public class PencilTool implements Tool {
 
 	}
 
-	@Override
-	public void setToolColor(Color newColor) {
-		this.color = newColor;
-
-	}
-
-	@Override
-	public void setToolSize(int size) {
-		this.size = size;
-
-	}
+	
 
 }

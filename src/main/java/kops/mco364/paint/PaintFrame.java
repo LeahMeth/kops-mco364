@@ -13,19 +13,20 @@ import java.awt.print.Printable;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JColorChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-public class PaintFrame extends JFrame implements ActionListener {
+public class PaintFrame extends JFrame {
 
 	private Canvas canvas;
 	private JPanel toolPanel, settingsPanel;
-	private JButton pencil, line, rectangle, oval, bucket;
 	private JButton print, changeColor, changeSize;
 	private JButton undo, redo;
+	protected Tool tool;
 
 	public PaintFrame() {
 		setTitle("Paint");
@@ -39,33 +40,34 @@ public class PaintFrame extends JFrame implements ActionListener {
 		container.setLayout(new BorderLayout());
 
 		canvas = new Canvas();
+		PaintProperties properties = canvas.getProperties();
 
-		// tools
-		pencil = new JButton("Pencil");
-		pencil.addActionListener(this);
-		line = new JButton("Line");
-		line.addActionListener(this);
-		rectangle = new JButton("Rectangle");
-		rectangle.addActionListener(this);
-		oval = new JButton("Oval");
-		oval.addActionListener(this);
-		bucket = new JButton("Bucket");
-		bucket.addActionListener(this);
+		ActionListener listener = new ActionListener() {
+
+			public void actionPerformed(ActionEvent event) {
+				ToolButton button = (ToolButton) event.getSource();
+				canvas.setTool(button.getTool());
+			}
+		};
+
+			
+		ToolButton buttons[] = new ToolButton[] { new ToolButton(new PencilTool(properties), "/pencil.png"),
+				new ToolButton(new LineTool(properties), "/line.png"),
+				new ToolButton(new RectangleTool(properties), "/rectangle.png"),
+				new ToolButton(new OvalTool(properties), "/oval.png"),
+				new ToolButton(new BucketTool(properties), "/bucket.png") };
 
 		toolPanel = new JPanel(new FlowLayout());
 
-		toolPanel.add(pencil);
-		toolPanel.add(line);
-		toolPanel.add(rectangle);
-		toolPanel.add(oval);
-		toolPanel.add(bucket);
+		for(ToolButton button: buttons){
+			toolPanel.add(button);
+			button.addActionListener(listener);
+		}
 
 		// settings and options
-
-		changeColor = new JButton("Change Color");
+		changeColor = new JButton(new ImageIcon(getClass().getResource("/colorpicker.jpg")));
 		changeColor.addActionListener(new ActionListener() {
 
-			@Override
 			public void actionPerformed(ActionEvent event) {
 				Color newColor = JColorChooser.showDialog(null, "change color", Color.BLACK);
 				if (newColor != null) {
@@ -75,10 +77,9 @@ public class PaintFrame extends JFrame implements ActionListener {
 
 		});
 
-		changeSize = new JButton("Change Size");
+		changeSize = new JButton(new ImageIcon(getClass().getResource("/weight.png")));
 		changeSize.addActionListener(new ActionListener() {
 
-			@Override
 			public void actionPerformed(ActionEvent e) {
 				int size = 1;
 
@@ -92,7 +93,7 @@ public class PaintFrame extends JFrame implements ActionListener {
 
 		});
 
-		print = new JButton("Print Canvas");
+		print = new JButton(new ImageIcon(getClass().getResource("/print.png")));
 		print.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent arg0) {
@@ -122,10 +123,9 @@ public class PaintFrame extends JFrame implements ActionListener {
 
 		});
 
-		undo = new JButton("Undo");
+		undo = new JButton(new ImageIcon(getClass().getResource("/undo.jpg")));
 		undo.addActionListener(new ActionListener() {
 
-			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				canvas.undoAction();
 
@@ -133,10 +133,9 @@ public class PaintFrame extends JFrame implements ActionListener {
 
 		});
 
-		redo = new JButton("Redo");
+		redo = new JButton(new ImageIcon(getClass().getResource("/redo.png")));
 		redo.addActionListener(new ActionListener() {
 
-			@Override
 			public void actionPerformed(ActionEvent e) {
 				canvas.redoAction();
 			}
@@ -153,14 +152,6 @@ public class PaintFrame extends JFrame implements ActionListener {
 		container.add(toolPanel, BorderLayout.NORTH);
 		container.add(canvas, BorderLayout.CENTER);
 		container.add(settingsPanel, BorderLayout.SOUTH);
-	}
-
-	public void actionPerformed(ActionEvent event) {
-		JButton source = (JButton) event.getSource();
-		String toolType = source.getText();
-
-		canvas.setTool(toolType);
-
 	}
 
 	public static void main(String[] args) {

@@ -6,22 +6,19 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
-public class RectangleTool implements Tool {
+public class RectangleTool extends Tool {
 
-	private Color color;
-	private int size;
 	private int x1;
 	private int y1;
 	private int x2;
 	private int y2;
 
-	public RectangleTool(Color color, int size) {
-		this.color = color;
-		this.size = size;
+	public RectangleTool(PaintProperties properties) {
+		super(properties);
 	}
 
 	@Override
-	public void mousePressed(Graphics g, int x, int y, BufferedImage buffer) {
+	public void mousePressed(Graphics g, int x, int y) {
 		this.x1 = x;
 		this.y1 = y;
 		this.x2 = x;
@@ -38,8 +35,8 @@ public class RectangleTool implements Tool {
 	@Override
 	public void mouseReleased(Graphics g, int x, int y) {
 		Graphics2D g2 = (Graphics2D) g;
-		g2.setStroke(new BasicStroke(size));
-		g2.setColor(color);
+		g2.setStroke(new BasicStroke(properties.getWeight()));
+		g2.setColor(properties.getColor());
 		x2 = x;
 		y2 = y;
 
@@ -58,8 +55,8 @@ public class RectangleTool implements Tool {
 	@Override
 	public void drawPreview(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
-		g2.setStroke(new BasicStroke(size));
-		g2.setColor(color);
+		g2.setStroke(new BasicStroke(properties.getWeight()));
+		g2.setColor(properties.getColor());
 		if (x1 < x2 && y1 < y2) {
 			g2.drawRect(x1, y1, (x2 - x1), (y2 - y1));
 		} else if (x1 < x2 && y1 > y2) {
@@ -72,16 +69,5 @@ public class RectangleTool implements Tool {
 
 	}
 
-	@Override
-	public void setToolColor(Color newColor) {
-		this.color = newColor;
-
-	}
-
-	@Override
-	public void setToolSize(int size) {
-		this.size = size;
-
-	}
 
 }

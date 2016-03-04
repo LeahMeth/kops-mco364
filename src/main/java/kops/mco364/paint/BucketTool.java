@@ -1,31 +1,29 @@
 package kops.mco364.paint;
 
-import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.image.BufferedImage;
 import java.util.Stack;
 
-public class BucketTool implements Tool {
+public class BucketTool extends Tool {
 
-	private Color color;
 	private int source;
 	private int currentX;
 	private int currentY;
 	private Point currentPoint;
+	private PaintProperties properties;
 
-	public BucketTool(Color color) {
-		this.color = color;
+	public BucketTool(PaintProperties properties) {
+		super(properties);
 	}
 
 	@Override
-	public void mousePressed(Graphics g, int x, int y, BufferedImage buffer) {
-		fill(x, y, buffer);
+	public void mousePressed(Graphics g, int x, int y) {
+		fill(x, y);
 
 	}
 
-	private void fill(int x, int y, BufferedImage buffer) {
-		source = buffer.getRGB(x, y);
-		if (source == color.getRGB()) {
+	private void fill(int x, int y) {
+		source = properties.getImage().getRGB(x, y);
+		if (source == properties.getColor().getRGB()) {
 			return;
 		}
 
@@ -36,8 +34,8 @@ public class BucketTool implements Tool {
 			currentX = currentPoint.getX();
 			currentY = currentPoint.getY();
 			if (currentX > 0 && currentY > 0 && currentX < 1000 && currentY < 750) {
-				if (buffer.getRGB(currentX, currentY) == source) {
-					buffer.setRGB(currentX, currentY, color.getRGB());
+				if (properties.getImage().getRGB(currentX, currentY) == source) {
+					properties.getImage().setRGB(currentX, currentY, properties.getColor().getRGB());
 
 					points.push(new Point(currentX, currentY - 1));
 					points.push(new Point(currentX - 1, currentY));
@@ -68,16 +66,6 @@ public class BucketTool implements Tool {
 
 	}
 
-	@Override
-	public void setToolColor(Color newColor) {
-		this.color = newColor;
-
-	}
-
-	@Override
-	public void setToolSize(int size) {
-		// TODO Auto-generated method stub
-
-	}
+	
 
 }

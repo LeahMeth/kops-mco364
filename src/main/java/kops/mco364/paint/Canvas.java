@@ -18,34 +18,35 @@ public class Canvas extends JPanel {
 	private Tool tool;
 	private Color color;
 	private int toolSize;
+	
+	private PaintProperties properties;
+	
 	private Stack<BufferedImage> undo;
 	private Stack<BufferedImage> redo;
 
 	public Canvas() {
 
+		properties = new PaintProperties(new BufferedImage(1000, 750, BufferedImage.TYPE_INT_ARGB));
 		undo = new Stack<BufferedImage>();
 		redo = new Stack<BufferedImage>();
 
-		buffer = new BufferedImage(1000, 750, BufferedImage.TYPE_INT_ARGB);
 		copy = deepCopy();
 		undo.push(copy);
 
-		color = Color.BLACK;
-		toolSize = 1;
-		tool = new PencilTool(color, toolSize); // default
+		tool = new PencilTool(properties); // default
 
 		this.addMouseListener(new MouseListener() {
 
 			public void mousePressed(MouseEvent e) {
 				copy = deepCopy();
 				undo.push(copy);
-				tool.mousePressed(buffer.getGraphics(), e.getX(), e.getY(), buffer);
+				tool.mousePressed(properties.getImage().getGraphics(), e.getX(), e.getY());
 				repaint();
 
 			}
 
 			public void mouseReleased(MouseEvent e) {
-				tool.mouseReleased(buffer.getGraphics(), e.getX(), e.getY());
+				tool.mouseReleased(properties.getImage().getGraphics(), e.getX(), e.getY());
 				repaint();
 
 			}
@@ -70,7 +71,7 @@ public class Canvas extends JPanel {
 
 			public void mouseDragged(MouseEvent e) {
 
-				tool.mouseDragged(buffer.getGraphics(), e.getX(), e.getY());
+				tool.mouseDragged(properties.getImage().getGraphics(), e.getX(), e.getY());
 
 				repaint();
 			}
@@ -83,41 +84,27 @@ public class Canvas extends JPanel {
 		});
 	}
 
-	public void setTool(String toolType) {
-		switch (toolType) {
-		case "Pencil":
-			this.tool = new PencilTool(color, toolSize);
-			break;
-		case "Line":
-			this.tool = new LineTool(color, toolSize);
-			break;
-		case "Rectangle":
-			this.tool = new RectangleTool(color, toolSize);
-			break;
-		case "Oval":
-			this.tool = new OvalTool(color, toolSize);
-			break;
-		case "Bucket":
-			this.tool = new BucketTool(color);
-			break;
-		}
+	public void setTool(Tool tool) {
+		this.tool = tool;
 	}
 
 	public void setToolColor(Color newColor) {
-		this.color = newColor;
-		this.tool.setToolColor(newColor);
+		properties.setColor(newColor);
 	}
 
 	public void setToolSize(int size) {
-		this.toolSize = size;
-		this.tool.setToolSize(size);
+		properties.setWeight(size);
+	}
+
+	public PaintProperties getProperties() {
+		return properties;
 	}
 
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 
-		g.drawImage(buffer, 0, 0, null);
+		g.drawImage(properties.getImage(), 0, 0, null);
 		tool.drawPreview(g);
 
 	}
@@ -126,7 +113,7 @@ public class Canvas extends JPanel {
 		if (!undo.isEmpty()) {
 			copy = deepCopy();
 			redo.push(copy);
-			this.buffer = undo.pop();
+			properties.setImage(undo.pop());
 			repaint();
 		}
 	}
@@ -135,15 +122,15 @@ public class Canvas extends JPanel {
 		if (!redo.isEmpty()) {
 			copy = deepCopy();
 			undo.push(copy);
-			this.buffer = redo.pop();
+			properties.setImage(redo.pop());
 			repaint();
 		}
 	}
 
 	public BufferedImage deepCopy() {
-		ColorModel cm = this.buffer.getColorModel();
+		ColorModel cm = properties.getImage().getColorModel();
 		boolean isAlphaPremultiplied = cm.isAlphaPremultiplied();
-		WritableRaster raster = this.buffer.copyData(null);
+		WritableRaster raster = properties.getImage().copyData(null);
 		return new BufferedImage(cm, raster, isAlphaPremultiplied, null);
 	}
 

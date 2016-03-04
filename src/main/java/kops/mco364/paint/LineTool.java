@@ -7,21 +7,18 @@ import java.awt.Graphics2D;
 import java.awt.geom.Line2D;
 import java.awt.image.BufferedImage;
 
-public class LineTool implements Tool {
+public class LineTool extends Tool {
 
 	private int x1;
 	private int y1;
 	private int x2;
 	private int y2;
-	private Color color;
-	private int size;
 
-	public LineTool(Color color, int size) {
-		this.color = color;
-		this.size = size;
+	public LineTool(PaintProperties properties) {
+		super(properties);
 	}
 
-	public void mousePressed(Graphics g, int x, int y, BufferedImage buffer) {
+	public void mousePressed(Graphics g, int x, int y) {
 		this.x1 = x;
 		this.y1 = y;
 		this.x2 = x;
@@ -30,8 +27,8 @@ public class LineTool implements Tool {
 
 	public void mouseReleased(Graphics g, int x, int y) {
 		Graphics2D g2 = (Graphics2D) g;
-		g2.setStroke(new BasicStroke(size, BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER));
-		g2.setColor(color);
+		g2.setStroke(new BasicStroke(properties.getWeight(), BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER));
+		g2.setColor(properties.getColor());
 		g2.draw(new Line2D.Float(x1, y1, x, y));
 
 	}
@@ -43,20 +40,11 @@ public class LineTool implements Tool {
 
 	public void drawPreview(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
-		g2.setStroke(new BasicStroke(size, BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER));
-		g2.setColor(color);
+		g2.setStroke(new BasicStroke(properties.getWeight(), BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER));
+		g2.setColor(properties.getColor());
 		g2.draw(new Line2D.Float(x1, y1, x2, y2));
 	}
 
-	@Override
-	public void setToolColor(Color newColor) {
-		this.color = newColor;
-	}
-
-	@Override
-	public void setToolSize(int size) {
-		this.size = size;
-
-	}
+	
 
 }
