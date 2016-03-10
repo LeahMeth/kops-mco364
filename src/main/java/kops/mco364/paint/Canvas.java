@@ -24,9 +24,9 @@ public class Canvas extends JPanel {
 	private Stack<BufferedImage> undo;
 	private Stack<BufferedImage> redo;
 
-	public Canvas() {
-
-		properties = new PaintProperties(new BufferedImage(1000, 750, BufferedImage.TYPE_INT_ARGB));
+	public Canvas(final PaintProperties properties) {
+		this.properties = properties;
+		
 		undo = new Stack<BufferedImage>();
 		redo = new Stack<BufferedImage>();
 

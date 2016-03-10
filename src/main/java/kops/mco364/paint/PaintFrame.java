@@ -8,6 +8,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.awt.print.PageFormat;
 import java.awt.print.Printable;
 import java.awt.print.PrinterException;
@@ -38,9 +39,11 @@ public class PaintFrame extends JFrame {
 		Container container = new Container();
 		container = getContentPane();
 		container.setLayout(new BorderLayout());
+		
+		 PaintProperties properties = new PaintProperties(new BufferedImage(1000, 750, BufferedImage.TYPE_INT_ARGB));
 
-		canvas = new Canvas();
-		PaintProperties properties = canvas.getProperties();
+		canvas = new Canvas(properties);
+		
 
 		ActionListener listener = new ActionListener() {
 
