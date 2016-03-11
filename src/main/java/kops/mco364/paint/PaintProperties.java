@@ -13,12 +13,19 @@ public class PaintProperties {
 	private BufferedImage image;
 	
 	
-	public PaintProperties(BufferedImage buffer){
-		this.image = buffer;
+	public PaintProperties(){
+		/*this.image = buffer;
 		this.color = Color.BLACK;
 		this.weight = 1;
 		this.width = buffer.getWidth();
-		this.height = buffer.getHeight();
+		this.height = buffer.getHeight();*/
+		this.image = new BufferedImage(1000, 750, BufferedImage.TYPE_INT_ARGB);
+		this.fill = false;
+		this.color = Color.BLACK;
+		this.weight = 1;
+		this.width = 1000;
+		this.height = 750;
+		
 	}
 	
 	

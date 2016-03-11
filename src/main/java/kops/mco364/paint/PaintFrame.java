@@ -21,6 +21,10 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import com.google.inject.Guice;
+import com.google.inject.Inject;
+import com.google.inject.Injector;
+
 public class PaintFrame extends JFrame {
 
 	private Canvas canvas;
@@ -29,7 +33,9 @@ public class PaintFrame extends JFrame {
 	private JButton undo, redo;
 	protected Tool tool;
 
-	public PaintFrame() {
+	
+	@Inject
+	public PaintFrame(PaintProperties properties) {
 		setTitle("Paint");
 		setSize(1000, 750);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -40,10 +46,8 @@ public class PaintFrame extends JFrame {
 		container = getContentPane();
 		container.setLayout(new BorderLayout());
 		
-		 PaintProperties properties = new PaintProperties(new BufferedImage(1000, 750, BufferedImage.TYPE_INT_ARGB));
 
 		canvas = new Canvas(properties);
-		
 
 		ActionListener listener = new ActionListener() {
 
@@ -53,7 +57,6 @@ public class PaintFrame extends JFrame {
 			}
 		};
 
-			
 		ToolButton buttons[] = new ToolButton[] { new ToolButton(new PencilTool(properties), "/pencil.png"),
 				new ToolButton(new LineTool(properties), "/line.png"),
 				new ToolButton(new RectangleTool(properties), "/rectangle.png"),
@@ -62,7 +65,7 @@ public class PaintFrame extends JFrame {
 
 		toolPanel = new JPanel(new FlowLayout());
 
-		for(ToolButton button: buttons){
+		for (ToolButton button : buttons) {
 			toolPanel.add(button);
 			button.addActionListener(listener);
 		}
@@ -158,7 +161,10 @@ public class PaintFrame extends JFrame {
 	}
 
 	public static void main(String[] args) {
-		new PaintFrame().setVisible(true);
+		Injector injector = Guice.createInjector(new PaintModule());
+		
+		PaintFrame frame = injector.getInstance(PaintFrame.class);	
+		
 	}
 
 }
