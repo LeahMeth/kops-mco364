@@ -10,20 +10,22 @@ import java.awt.image.ColorModel;
 import java.awt.image.WritableRaster;
 import java.util.Stack;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import javax.swing.JPanel;
 
+@Singleton
 public class Canvas extends JPanel {
 
 	private BufferedImage buffer, copy;
 	private Tool tool;
 	private Color color;
-	private int toolSize;
-	
-	private PaintProperties properties;
-	
+	private int toolSize;	
+	private PaintProperties properties;	
 	private Stack<BufferedImage> undo;
 	private Stack<BufferedImage> redo;
 
+	@Inject
 	public Canvas(final PaintProperties properties) {
 		this.properties = properties;
 		

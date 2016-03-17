@@ -3,6 +3,9 @@ package kops.mco364.paint;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 
+import javax.inject.Singleton;
+
+@Singleton
 public class PaintProperties {
 
 	private int width;
@@ -14,11 +17,6 @@ public class PaintProperties {
 	
 	
 	public PaintProperties(){
-		/*this.image = buffer;
-		this.color = Color.BLACK;
-		this.weight = 1;
-		this.width = buffer.getWidth();
-		this.height = buffer.getHeight();*/
 		this.image = new BufferedImage(1000, 750, BufferedImage.TYPE_INT_ARGB);
 		this.fill = false;
 		this.color = Color.BLACK;

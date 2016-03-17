@@ -9,7 +9,7 @@ public class BucketTool extends Tool {
 	private int currentX;
 	private int currentY;
 	private Point currentPoint;
-	private PaintProperties properties;
+	//private PaintProperties properties;
 
 	public BucketTool(PaintProperties properties) {
 		super(properties);
