@@ -26,7 +26,7 @@ public class PencilTool extends Tool {
 	public void mouseDragged(Graphics g, int x, int y) {
 		Graphics2D g2 = (Graphics2D) g;
 		g2.setColor(properties.getColor());
-		g2.setStroke(new BasicStroke(properties.getWeight(), BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER));
+		g2.setStroke(properties.getStroke());
 		g2.draw(new Line2D.Float(x, y, this.x, this.y));
 
 		this.x = x;

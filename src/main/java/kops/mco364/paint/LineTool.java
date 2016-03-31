@@ -27,14 +27,11 @@ public class LineTool extends Tool {
 
 	public void mouseReleased(Graphics g, int x, int y) {
 		Graphics2D g2 = (Graphics2D) g;
-		g2.setStroke(new BasicStroke(properties.getWeight(), BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER));
+		g2.setStroke(properties.getStroke());
 		g2.setColor(properties.getColor());
 		g2.draw(new Line2D.Float(x1, y1, x, y));
 		
-		//use for testing
-		/*g.drawLine(x1, y1, x, y);
-		g.setColor(properties.getColor());
-		*/
+		
 	}
 
 	public void mouseDragged(Graphics g, int x, int y) {
@@ -44,7 +41,7 @@ public class LineTool extends Tool {
 
 	public void drawPreview(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
-		g2.setStroke(new BasicStroke(properties.getWeight(), BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER));
+		g2.setStroke(properties.getStroke());
 		g2.setColor(properties.getColor());
 		g2.draw(new Line2D.Float(x1, y1, x2, y2));
 	}

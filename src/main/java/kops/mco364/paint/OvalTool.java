@@ -1,7 +1,5 @@
 package kops.mco364.paint;
 
-import java.awt.BasicStroke;
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
@@ -36,7 +34,7 @@ public class OvalTool extends Tool {
 	@Override
 	public void mouseReleased(Graphics g, int x, int y) {
 		Graphics2D g2 = (Graphics2D) g;
-		g2.setStroke(new BasicStroke(properties.getWeight()));
+		g2.setStroke(properties.getStroke());
 		g2.setColor(properties.getColor());
 		x2 = x;
 		y2 = y;
@@ -56,7 +54,7 @@ public class OvalTool extends Tool {
 	@Override
 	public void drawPreview(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
-		g2.setStroke(new BasicStroke(properties.getWeight()));
+		g2.setStroke(properties.getStroke());
 		g2.setColor(properties.getColor());
 		if (x1 < x2 && y1 < y2) {
 			g2.drawOval(x1, y1, (x2 - x1), (y2 - y1));
