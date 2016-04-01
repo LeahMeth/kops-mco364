@@ -2,6 +2,7 @@ package kops.mco364.paint;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Stroke;
 import java.awt.image.BufferedImage;
 
 import javax.inject.Singleton;
@@ -23,20 +24,11 @@ public class PaintProperties {
 		this.fill = false;
 		this.color = Color.BLACK;
 		this.weight = 1;
-		this.stroke = new BasicStroke(weight);
 		this.width = 1000;
 		this.height = 750;
 		
 	}
-	
-	
-	
-	public int getWidth() {
-		return width;
-	}
-	public void setWidth(int width) {
-		this.width = width;
-	}
+
 	public int getHeight() {
 		return height;
 	}
@@ -49,8 +41,8 @@ public class PaintProperties {
 	public void setColor(Color color) {
 		this.color = color;
 	}
-	public BasicStroke getStroke() {
-		return stroke;
+	public Stroke getStroke() {
+		return new BasicStroke(this.weight);
 	}
 	public void setWeight(int weight) {
 		this.weight = weight;
@@ -67,8 +59,6 @@ public class PaintProperties {
 	public void setImage(BufferedImage image) {
 		this.image = image;
 	}
-
-
 
 	public int getWeight() {
 		return this.weight;
