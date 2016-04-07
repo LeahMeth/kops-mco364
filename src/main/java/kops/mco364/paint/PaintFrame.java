@@ -1,25 +1,15 @@
 package kops.mco364.paint;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Container;
-import java.awt.FlowLayout;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-import java.awt.print.PageFormat;
-import java.awt.print.Printable;
-import java.awt.print.PrinterException;
-import java.awt.print.PrinterJob;
+import java.io.IOException;
+import java.util.logging.FileHandler;
+import java.util.logging.Handler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JColorChooser;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 
 import com.google.inject.Guice;
 import com.google.inject.Inject;
@@ -46,7 +36,16 @@ public class PaintFrame extends JFrame {
 		
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws SecurityException, IOException {
+		
+		Logger logger = Logger.getLogger("kops.mco364.paint");
+		logger.setLevel(Level.FINE);
+		Handler handler = new FileHandler("Log");
+		handler.setLevel(Level.FINE);
+		handler.setFormatter(new SimpleFormatter());
+		logger.addHandler(handler);
+		
+				
 		Injector injector = Guice.createInjector(new PaintModule());		
 		PaintFrame frame = injector.getInstance(PaintFrame.class);	
 		

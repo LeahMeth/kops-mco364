@@ -1,13 +1,15 @@
 package kops.mco364.paint;
 
 import java.awt.BasicStroke;
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.Line2D;
-import java.awt.image.BufferedImage;
+import java.util.logging.Logger;
 
 public class LineTool extends Tool {
+	
+	//logger
+	private static final Logger LOGGER  = Logger.getLogger(LineTool.class.getName());
 
 	private int x1;
 	private int y1;
@@ -31,10 +33,6 @@ public class LineTool extends Tool {
 		g2.setColor(properties.getColor());
 		g2.draw(new Line2D.Float(x1, y1, x, y));
 		
-		//use for testing
-		/*g.drawLine(x1, y1, x, y);
-		g.setColor(properties.getColor());
-		*/
 	}
 
 	public void mouseDragged(Graphics g, int x, int y) {
@@ -47,6 +45,9 @@ public class LineTool extends Tool {
 		g2.setStroke(new BasicStroke(properties.getWeight(), BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER));
 		g2.setColor(properties.getColor());
 		g2.draw(new Line2D.Float(x1, y1, x2, y2));
+		
+		String logMessage = String.format("x1=%d, y1=%d, x2=%d, y2=%d", x1, y1, x2, x2);
+		LOGGER.fine(logMessage);
 	}
 
 	
