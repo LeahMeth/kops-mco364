@@ -1,9 +1,14 @@
 package kops.mco364.paint;
 
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
+
+@Singleton
 public class CanvasRepaintManager {
 	
 	private Canvas canvas;
 	
+	@Inject
 	public CanvasRepaintManager(Canvas canvas){
 		this.canvas = canvas;
 	}
