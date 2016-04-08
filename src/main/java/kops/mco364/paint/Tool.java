@@ -5,9 +5,11 @@ import java.awt.Graphics;
 public abstract class Tool {
 
 	protected PaintProperties properties;
+	protected CanvasRepaintManager manager;
 	
-	public Tool(PaintProperties properties){
+	public Tool(CanvasRepaintManager manager, PaintProperties properties){
 		this.properties = properties;
+		this.manager = manager;
 	}
 	
 	abstract void mousePressed(Graphics g, int x, int y);

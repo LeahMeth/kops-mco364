@@ -20,15 +20,15 @@ public class Canvas extends JPanel {
 	private BufferedImage buffer, copy;
 	private Tool tool;
 	private Color color;
-	private int toolSize;	
-	private PaintProperties properties;	
+	private int toolSize;
+	private PaintProperties properties;
 	private Stack<BufferedImage> undo;
 	private Stack<BufferedImage> redo;
 
 	@Inject
 	public Canvas(final PaintProperties properties) {
 		this.properties = properties;
-		
+
 		undo = new Stack<BufferedImage>();
 		redo = new Stack<BufferedImage>();
 

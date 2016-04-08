@@ -40,6 +40,8 @@ public class RectangleTool extends Tool {
 		x2 = x;
 		y2 = y;
 
+		
+		
 		if (x1 < x2 && y1 < y2) {
 			g2.drawRect(x1, y1, (x2 - x1), (y2 - y1));
 		} else if (x1 < x2 && y1 > y2) {
